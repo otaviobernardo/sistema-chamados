@@ -73,9 +73,11 @@ public class Chamado {
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public LocalDateTime getDataAbertura() { return dataAbertura; }
     public LocalDateTime getDataFechamento() { return dataFechamento; }
+    public void setDataFechamento(LocalDateTime dataFechamento) { this.dataFechamento = dataFechamento; }
     public Prioridade getPrioridade() { return prioridade; }
     public void setPrioridade(Prioridade prioridade) { this.prioridade = prioridade; }
     public StatusChamado getStatus() { return status; }
+    public void setStatus(StatusChamado status) { this.status = status; }
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public Categoria getCategoria() { return categoria; }

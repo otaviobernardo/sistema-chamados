@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sistemas.chamados.dto.AlterarStatusRequest;
 import br.com.sistemas.chamados.dto.AtribuirTecnicoRequest;
+import br.com.sistemas.chamados.dto.ChamadoDetalheResponse;
 import br.com.sistemas.chamados.dto.ChamadoRequest;
 import br.com.sistemas.chamados.dto.ChamadoResponse;
 import br.com.sistemas.chamados.dto.PaginaResponse;
@@ -54,7 +55,7 @@ public class ChamadoController {
     }
 
     @GetMapping("/{id}")
-    public ChamadoResponse buscar(@PathVariable Long id) {
+    public ChamadoDetalheResponse buscar(@PathVariable Long id) {
         return service.buscar(id);
     }
 

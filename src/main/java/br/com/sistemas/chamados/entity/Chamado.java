@@ -1,7 +1,10 @@
 package br.com.sistemas.chamados.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
@@ -52,6 +57,10 @@ public class Chamado {
     @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
+    @OneToMany(mappedBy = "chamado", cascade = CascadeType.REMOVE)
+    @OrderBy("data ASC, id ASC")
+    private List<Comentario> comentarios = new ArrayList<>();
+
     public Chamado() { }
 
     public Chamado(String titulo, String descricao, Prioridade prioridade, StatusChamado status,
@@ -73,13 +82,16 @@ public class Chamado {
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public LocalDateTime getDataAbertura() { return dataAbertura; }
     public LocalDateTime getDataFechamento() { return dataFechamento; }
+    public void setDataFechamento(LocalDateTime dataFechamento) { this.dataFechamento = dataFechamento; }
     public Prioridade getPrioridade() { return prioridade; }
     public void setPrioridade(Prioridade prioridade) { this.prioridade = prioridade; }
     public StatusChamado getStatus() { return status; }
+    public void setStatus(StatusChamado status) { this.status = status; }
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
     public Tecnico getTecnico() { return tecnico; }
     public void setTecnico(Tecnico tecnico) { this.tecnico = tecnico; }
+    public List<Comentario> getComentarios() { return comentarios; }
 }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${id} ? 'Editar chamado' : 'Novo chamado')}"></head>
+<body data-pagina="chamados-form" th:data-id="${id}">
+<nav th:replace="~{fragments/layout :: navbar('chamados')}"></nav>
+
+<main class="container py-4">
+    <nav aria-label="Caminho">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/app/chamados}">Chamados</a></li>
+            <li class="breadcrumb-item" th:if="${id}">
+                <a th:href="@{/app/chamados/{id}(id=${id})}" th:text="|#${id}|">#1</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${id} ? 'Editar' : 'Novo'">Novo</li>
+        </ol>
+    </nav>
+
+    <div class="page-header">
+        <div>
+            <h1 th:text="${id} ? 'Editar chamado' : 'Novo chamado'">Novo chamado</h1>
+            <p class="subtitulo">Campos marcados com * são obrigatórios</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 col-xl-8">
+            <div class="card" id="conteudo-formulario">
+                <div class="card-body p-4">
+                    <div class="alert alert-warning d-none" id="aviso-cadastros" role="alert"></div>
+
+                    <form id="form-chamado" novalidate>
+                        <div class="alert alert-danger alerta-formulario d-none" role="alert"></div>
+
+                        <fieldset id="campos-chamado" disabled>
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título *</label>
+                                <input id="titulo" name="titulo" class="form-control" maxlength="150"
+                                       placeholder="Resuma o problema em poucas palavras">
+                                <div class="invalid-feedback" data-erro-de="titulo"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">Descrição *</label>
+                                <textarea id="descricao" name="descricao" class="form-control" rows="5"
+                                          maxlength="1000" aria-describedby="descricao-contador"
+                                          placeholder="O que aconteceu? Desde quando? Já tentou alguma solução?"></textarea>
+                                <div class="invalid-feedback" data-erro-de="descricao"></div>
+                                <div class="form-text text-end" id="descricao-contador" data-contador-de="descricao"></div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label for="clienteId" class="form-label">Cliente *</label>
+                                    <select id="clienteId" name="clienteId" class="form-select"></select>
+                                    <div class="invalid-feedback" data-erro-de="clienteId"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="categoriaId" class="form-label">Categoria *</label>
+                                    <select id="categoriaId" name="categoriaId" class="form-select"></select>
+                                    <div class="invalid-feedback" data-erro-de="categoriaId"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="prioridade" class="form-label">Prioridade *</label>
+                                    <select id="prioridade" name="prioridade" class="form-select">
+                                        <option value="">Selecione...</option>
+                                        <option value="BAIXA">Baixa</option>
+                                        <option value="MEDIA">Média</option>
+                                        <option value="ALTA">Alta</option>
+                                        <option value="CRITICA">Crítica</option>
+                                    </select>
+                                    <div class="invalid-feedback" data-erro-de="prioridade"></div>
+                                </div>
+                                <div class="col-md-6" th:unless="${id}">
+                                    <label for="tecnicoId" class="form-label">Técnico responsável</label>
+                                    <select id="tecnicoId" name="tecnicoId" class="form-select"
+                                            aria-describedby="tecnico-ajuda"></select>
+                                    <div class="invalid-feedback" data-erro-de="tecnicoId"></div>
+                                    <div class="form-text" id="tecnico-ajuda">Opcional: pode ser atribuído depois.</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a class="btn btn-outline-secondary"
+                                   th:href="${id} ? @{/app/chamados/{id}(id=${id})} : @{/app/chamados}">Cancelar</a>
+                                <button id="botao-salvar" type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg me-1"></i><span th:text="${id} ? 'Salvar' : 'Abrir chamado'">Abrir chamado</span>
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/chamados.js}"></script>
+</body>
+</html>

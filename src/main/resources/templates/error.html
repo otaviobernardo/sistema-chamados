@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Erro')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('')}"></nav>
+
+<main class="container py-5">
+    <div class="card">
+        <div class="estado-vazio">
+            <i class="bi bi-signpost-split"></i>
+            <h1 class="h3 text-body" th:text="${status == 404} ? 'Página não encontrada' : 'Algo deu errado'">
+                Algo deu errado
+            </h1>
+            <p th:text="|Erro ${status}|">Erro</p>
+            <a class="btn btn-primary" th:href="@{/app}">Voltar ao início</a>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+</body>
+</html>

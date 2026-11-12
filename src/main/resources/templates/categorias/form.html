@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${id} ? 'Editar categoria' : 'Nova categoria')}"></head>
+<body data-pagina="categorias-form" th:data-id="${id}">
+<nav th:replace="~{fragments/layout :: navbar('categorias')}"></nav>
+
+<main class="container py-4">
+    <nav aria-label="Caminho">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/app/categorias}">Categorias</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${id} ? 'Editar' : 'Nova'">Nova</li>
+        </ol>
+    </nav>
+
+    <div class="page-header">
+        <div>
+            <h1 th:text="${id} ? 'Editar categoria' : 'Nova categoria'">Nova categoria</h1>
+            <p class="subtitulo">Campos marcados com * são obrigatórios</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-xl-6">
+            <div class="card" id="conteudo-formulario">
+                <div class="card-body p-4">
+                    <form id="form-categoria" novalidate>
+                        <div class="alert alert-danger alerta-formulario d-none" role="alert"></div>
+
+                        <fieldset id="campos-categoria" th:disabled="${id != null}">
+                            <div class="mb-3">
+                                <label for="nome" class="form-label">Nome *</label>
+                                <input id="nome" name="nome" class="form-control" maxlength="100"
+                                       placeholder="Ex.: Hardware">
+                                <div class="invalid-feedback" data-erro-de="nome"></div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="descricao" class="form-label">Descrição</label>
+                                <textarea id="descricao" name="descricao" class="form-control" rows="3"
+                                          maxlength="255" aria-describedby="descricao-contador"
+                                          placeholder="Que tipo de problema entra nesta categoria?"></textarea>
+                                <div class="invalid-feedback" data-erro-de="descricao"></div>
+                                <div class="form-text text-end" id="descricao-contador" data-contador-de="descricao"></div>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a class="btn btn-outline-secondary" th:href="@{/app/categorias}">Cancelar</a>
+                                <button id="botao-salvar" type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg me-1"></i>Salvar
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/categorias.js}"></script>
+</body>
+</html>

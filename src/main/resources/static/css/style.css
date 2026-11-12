@@ -1,0 +1,264 @@
+:root {
+    --app-primaria: #4f46e5;
+    --app-primaria-hover: #4338ca;
+    --app-primaria-ativa: #3730a3;
+    --app-primaria-suave: #e0e7ff;
+    --app-fundo: #f4f6fb;
+
+    --bs-primary: #4f46e5;
+    --bs-primary-rgb: 79, 70, 229;
+    --bs-primary-bg-subtle: #e0e7ff;
+    --bs-primary-border-subtle: #c7d2fe;
+    --bs-primary-text-emphasis: #3730a3;
+    --bs-link-color: #4f46e5;
+    --bs-link-color-rgb: 79, 70, 229;
+    --bs-link-hover-color: #3730a3;
+    --bs-link-hover-color-rgb: 55, 48, 163;
+}
+
+body {
+    background: var(--app-fundo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+}
+
+/* Menu principal */
+.app-navbar {
+    background: linear-gradient(90deg, #312e81, var(--app-primaria));
+    box-shadow: 0 2px 8px rgba(49, 46, 129, 0.25);
+}
+
+.app-navbar .navbar-brand {
+    font-weight: 600;
+}
+
+.app-navbar .nav-link {
+    border-radius: 0.5rem;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.app-navbar .nav-link.active {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* Botões e campos na cor do projeto */
+.btn-primary {
+    --bs-btn-bg: var(--app-primaria);
+    --bs-btn-border-color: var(--app-primaria);
+    --bs-btn-hover-bg: var(--app-primaria-hover);
+    --bs-btn-hover-border-color: var(--app-primaria-hover);
+    --bs-btn-active-bg: var(--app-primaria-ativa);
+    --bs-btn-active-border-color: var(--app-primaria-ativa);
+    --bs-btn-disabled-bg: var(--app-primaria);
+    --bs-btn-disabled-border-color: var(--app-primaria);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--app-primaria);
+    --bs-btn-border-color: var(--app-primaria);
+    --bs-btn-hover-bg: var(--app-primaria);
+    --bs-btn-hover-border-color: var(--app-primaria);
+    --bs-btn-active-bg: var(--app-primaria-ativa);
+    --bs-btn-active-border-color: var(--app-primaria-ativa);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #a5b4fc;
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.2);
+}
+
+.page-link {
+    color: var(--app-primaria);
+}
+
+.active > .page-link {
+    background-color: var(--app-primaria);
+    border-color: var(--app-primaria);
+}
+
+/* Cabeçalho de cada tela */
+.page-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.page-header .subtitulo {
+    color: var(--bs-secondary-color);
+    margin: 0.25rem 0 0;
+}
+
+/* Cartões e tabelas */
+.card {
+    border: 0;
+    border-radius: 0.9rem;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+    overflow: hidden;
+}
+
+.card .table > tbody > tr:last-child > * {
+    border-bottom-width: 0;
+}
+
+.table thead th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+    background: #f9fafb;
+    white-space: nowrap;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.75rem 1rem;
+}
+
+@media (max-width: 575.98px) {
+    .table > :not(caption) > * > * {
+        padding: 0.65rem 0.5rem;
+    }
+}
+
+.busca {
+    max-width: 24rem;
+}
+
+/* Círculo com as iniciais do nome */
+.avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--app-primaria-suave);
+    color: var(--app-primaria-ativa);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.avatar-lg {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.4rem;
+}
+
+/* Mensagem quando a lista está vazia */
+.estado-vazio {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--bs-secondary-color);
+}
+
+.estado-vazio > i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #a5b4fc;
+}
+
+/* Descrição e comentários */
+.texto-livre {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+/* Detalhe do chamado */
+.lista-info dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+}
+
+.lista-info dd {
+    margin-bottom: 0.9rem;
+}
+
+.lista-info dd:last-child {
+    margin-bottom: 0;
+}
+
+/* Comentários do chamado */
+.comentario + .comentario {
+    border-top: 1px solid var(--bs-border-color-translucent);
+}
+
+/* Dashboard */
+.indicador {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.indicador:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 24, 40, 0.12);
+}
+
+.indicador .icone {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.indicador .valor {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.indicador .rotulo {
+    color: var(--bs-secondary-color);
+    font-size: 0.9rem;
+}
+
+.barra-trilho {
+    height: 0.6rem;
+    background: var(--bs-tertiary-bg);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.barra-preenchimento {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+.app-rodape {
+    padding: 1.25rem 0;
+    color: var(--bs-secondary-color);
+    font-size: 0.85rem;
+    text-align: center;
+}

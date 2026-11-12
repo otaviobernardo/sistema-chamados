@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Técnicos')}"></head>
+<body data-pagina="tecnicos-lista">
+<nav th:replace="~{fragments/layout :: navbar('tecnicos')}"></nav>
+
+<main class="container py-4">
+    <div class="page-header">
+        <div>
+            <h1>Técnicos</h1>
+            <p class="subtitulo">Quem atende os chamados</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/app/tecnicos/novo}">
+            <i class="bi bi-plus-lg me-1"></i>Novo técnico
+        </a>
+    </div>
+
+    <div class="card" id="conteudo-tecnicos">
+        <div class="card-header bg-body d-flex flex-wrap gap-2 justify-content-between align-items-center py-3">
+            <div class="input-group busca">
+                <span class="input-group-text bg-body"><i class="bi bi-search"></i></span>
+                <input type="search" id="busca-tecnicos" class="form-control"
+                       placeholder="Buscar por nome ou e-mail" aria-label="Buscar técnicos">
+            </div>
+            <span id="contador-tecnicos" class="text-body-secondary small"></span>
+        </div>
+
+        <div id="area-tabela-tecnicos" class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="d-none d-sm-table-cell">E-mail</th>
+                    <th scope="col" class="d-none d-md-table-cell">Perfil</th>
+                    <th scope="col" class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody id="tabela-tecnicos">
+                <tr>
+                    <td colspan="4" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tecnicos-vazio" class="estado-vazio d-none">
+            <i class="bi bi-person-gear"></i>
+            <p class="mb-3" id="tecnicos-vazio-mensagem"></p>
+            <a class="btn btn-primary" id="tecnicos-vazio-botao" th:href="@{/app/tecnicos/novo}">
+                <i class="bi bi-plus-lg me-1"></i>Cadastrar o primeiro técnico
+            </a>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/tecnicos.js}"></script>
+</body>
+</html>

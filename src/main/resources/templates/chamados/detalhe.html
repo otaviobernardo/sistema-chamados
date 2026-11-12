@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Detalhe do chamado')}"></head>
+<body data-pagina="chamados-detalhe" th:data-id="${id}">
+<nav th:replace="~{fragments/layout :: navbar('chamados')}"></nav>
+
+<main class="container py-4">
+    <nav aria-label="Caminho">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/app/chamados}">Chamados</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="|#${id}|">#1</li>
+        </ol>
+    </nav>
+
+    <div id="conteudo-chamado">
+        <div class="card mb-4">
+            <div class="card-body p-4 d-flex flex-wrap gap-3 justify-content-between align-items-start">
+                <div class="flex-grow-1" style="min-width: 16rem">
+                    <div class="d-flex flex-wrap gap-2 align-items-center mb-2" id="chamado-badges">
+                        <span class="text-body-secondary fw-medium" th:text="|#${id}|">#1</span>
+                    </div>
+                    <h1 class="h3 mb-1" id="chamado-titulo">
+                        <span class="placeholder col-8 rounded"></span>
+                    </h1>
+                    <div class="text-body-secondary small" id="chamado-resumo"></div>
+                </div>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary d-none" id="botao-editar"
+                       th:href="@{/app/chamados/{id}/editar(id=${id})}">
+                        <i class="bi bi-pencil me-1"></i>Editar
+                    </a>
+                    <button type="button" class="btn btn-outline-danger" id="botao-excluir">
+                        <i class="bi bi-trash me-1"></i>Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-secondary d-flex gap-3 align-items-center d-none" id="aviso-fechado" role="status">
+            <i class="bi bi-lock-fill fs-4"></i>
+            <div id="aviso-fechado-texto"></div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8 d-flex flex-column gap-4">
+                <div class="card">
+                    <div class="card-header bg-body py-3">
+                        <h2 class="h6 mb-0"><i class="bi bi-card-text me-2"></i>Descrição</h2>
+                    </div>
+                    <div class="card-body texto-livre" id="chamado-descricao"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-body py-3 d-flex align-items-center">
+                        <h2 class="h6 mb-0">
+                            <i class="bi bi-chat-left-text me-2"></i>Comentários
+                            <span class="badge rounded-pill text-bg-light border ms-1" id="total-comentarios"></span>
+                        </h2>
+                    </div>
+                    <div id="lista-comentarios"></div>
+                    <div id="comentarios-vazio" class="estado-vazio py-4 d-none">
+                        <i class="bi bi-chat-square-dots"></i>
+                        <p class="mb-0">Nenhum comentário ainda.</p>
+                    </div>
+
+                    <div class="card-footer bg-body p-4 d-none" id="area-novo-comentario">
+                        <form id="form-comentario" novalidate>
+                            <div class="alert alert-danger alerta-formulario d-none" role="alert"></div>
+                            <div class="mb-3">
+                                <label for="autor" class="form-label">Seu nome *</label>
+                                <input id="autor" name="autor" class="form-control" maxlength="100" autocomplete="name">
+                                <div class="invalid-feedback" data-erro-de="autor"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="texto" class="form-label">Comentário *</label>
+                                <textarea id="texto" name="texto" class="form-control" rows="3" maxlength="1000"
+                                          aria-describedby="texto-contador"
+                                          placeholder="Escreva uma atualização ou pergunta sobre o chamado"></textarea>
+                                <div class="invalid-feedback" data-erro-de="texto"></div>
+                                <div class="form-text text-end" id="texto-contador" data-contador-de="texto"></div>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary" id="botao-comentar">
+                                    <i class="bi bi-send me-1"></i>Comentar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 d-flex flex-column gap-4">
+                <div class="card">
+                    <div class="card-header bg-body py-3">
+                        <h2 class="h6 mb-0"><i class="bi bi-info-circle me-2"></i>Informações</h2>
+                    </div>
+                    <div class="card-body">
+                        <dl class="lista-info mb-0">
+                            <dt>Cliente</dt>
+                            <dd id="info-cliente">—</dd>
+                            <dt>Categoria</dt>
+                            <dd id="info-categoria">—</dd>
+                            <dt>Técnico responsável</dt>
+                            <dd id="info-tecnico">—</dd>
+                            <dt>Abertura</dt>
+                            <dd id="info-abertura">—</dd>
+                            <dt>Fechamento</dt>
+                            <dd id="info-fechamento">—</dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="card d-none" id="area-atendimento">
+                    <div class="card-header bg-body py-3">
+                        <h2 class="h6 mb-0"><i class="bi bi-tools me-2"></i>Atendimento</h2>
+                    </div>
+                    <div class="card-body d-flex flex-column gap-4">
+                        <form id="form-status" novalidate>
+                            <label for="novo-status" class="form-label">Status</label>
+                            <div class="input-group">
+                                <select id="novo-status" name="status" class="form-select">
+                                    <option value="ABERTO">Aberto</option>
+                                    <option value="EM_ATENDIMENTO">Em atendimento</option>
+                                    <option value="AGUARDANDO_CLIENTE">Aguardando cliente</option>
+                                    <option value="FECHADO">Fechado</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary" id="botao-status">Alterar</button>
+                            </div>
+                        </form>
+
+                        <form id="form-tecnico" novalidate>
+                            <label for="novo-tecnico" class="form-label">Técnico responsável</label>
+                            <div class="input-group">
+                                <select id="novo-tecnico" name="tecnicoId" class="form-select"></select>
+                                <button type="submit" class="btn btn-primary" id="botao-tecnico">Atribuir</button>
+                            </div>
+                            <div class="form-text d-none" id="sem-tecnicos">
+                                Nenhum técnico cadastrado. <a href="/app/tecnicos/novo">Cadastrar técnico</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/chamados.js}"></script>
+</body>
+</html>

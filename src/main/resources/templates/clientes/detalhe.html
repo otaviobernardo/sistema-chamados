@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Detalhe do cliente')}"></head>
+<body data-pagina="clientes-detalhe" th:data-id="${id}">
+<nav th:replace="~{fragments/layout :: navbar('clientes')}"></nav>
+
+<main class="container py-4">
+    <nav aria-label="Caminho">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/app/clientes}">Clientes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detalhe</li>
+        </ol>
+    </nav>
+
+    <div id="conteudo-cliente">
+        <div class="card mb-4">
+            <div class="card-body p-4 d-flex flex-wrap gap-3 align-items-center">
+                <span class="avatar avatar-lg" id="cliente-avatar" aria-hidden="true"></span>
+                <div class="flex-grow-1">
+                    <h1 class="h3 mb-1" id="cliente-nome">
+                        <span class="placeholder col-6 rounded"></span>
+                    </h1>
+                    <div class="text-body-secondary d-flex flex-wrap column-gap-4 row-gap-1">
+                        <span><i class="bi bi-envelope me-1"></i><a id="cliente-email"></a></span>
+                        <span><i class="bi bi-telephone me-1"></i><span id="cliente-telefone"></span></span>
+                        <span><i class="bi bi-hash"></i><span th:text="${id}">1</span></span>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-primary" th:href="@{/app/clientes/{id}/editar(id=${id})}">
+                        <i class="bi bi-pencil me-1"></i>Editar
+                    </a>
+                    <button type="button" class="btn btn-outline-danger" id="botao-excluir">
+                        <i class="bi bi-trash me-1"></i>Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-body d-flex flex-wrap gap-2 justify-content-between align-items-center py-3">
+                <h2 class="h6 mb-0">
+                    <i class="bi bi-ticket-detailed me-2"></i>Chamados do cliente
+                    <span class="badge rounded-pill text-bg-light border ms-1" id="total-chamados"></span>
+                </h2>
+                <a class="btn btn-sm btn-primary" th:href="@{/app/chamados/novo(clienteId=${id})}">
+                    <i class="bi bi-plus-lg me-1"></i>Abrir chamado
+                </a>
+            </div>
+            <div id="area-chamados" class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Título</th>
+                        <th scope="col" class="d-none d-md-table-cell">Categoria</th>
+                        <th scope="col">Prioridade</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Abertura</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabela-chamados">
+                    <tr>
+                        <td colspan="6" class="text-center py-4">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="chamados-vazio" class="estado-vazio d-none">
+                <i class="bi bi-inbox"></i>
+                <p class="mb-0">Este cliente ainda não abriu chamados.</p>
+            </div>
+            <div class="card-footer bg-body d-flex justify-content-between align-items-center flex-wrap gap-2 d-none"
+                 id="paginacao-chamados"></div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/clientes.js}"></script>
+</body>
+</html>

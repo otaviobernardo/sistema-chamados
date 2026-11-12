@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Categorias')}"></head>
+<body data-pagina="categorias-lista">
+<nav th:replace="~{fragments/layout :: navbar('categorias')}"></nav>
+
+<main class="container py-4">
+    <div class="page-header">
+        <div>
+            <h1>Categorias</h1>
+            <p class="subtitulo">Tipos de problema usados para classificar os chamados</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/app/categorias/novo}">
+            <i class="bi bi-plus-lg me-1"></i>Nova categoria
+        </a>
+    </div>
+
+    <div class="card" id="conteudo-categorias">
+        <div class="card-header bg-body d-flex flex-wrap gap-2 justify-content-between align-items-center py-3">
+            <div class="input-group busca">
+                <span class="input-group-text bg-body"><i class="bi bi-search"></i></span>
+                <input type="search" id="busca-categorias" class="form-control"
+                       placeholder="Buscar por nome ou descrição" aria-label="Buscar categorias">
+            </div>
+            <span id="contador-categorias" class="text-body-secondary small"></span>
+        </div>
+
+        <div id="area-tabela-categorias" class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Descrição</th>
+                    <th scope="col" class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody id="tabela-categorias">
+                <tr>
+                    <td colspan="3" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="categorias-vazio" class="estado-vazio d-none">
+            <i class="bi bi-tags"></i>
+            <p class="mb-3" id="categorias-vazio-mensagem"></p>
+            <a class="btn btn-primary" id="categorias-vazio-botao" th:href="@{/app/categorias/novo}">
+                <i class="bi bi-plus-lg me-1"></i>Cadastrar a primeira categoria
+            </a>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/categorias.js}"></script>
+</body>
+</html>

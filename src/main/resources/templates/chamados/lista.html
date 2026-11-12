@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Chamados')}"></head>
+<body data-pagina="chamados-lista">
+<nav th:replace="~{fragments/layout :: navbar('chamados')}"></nav>
+
+<main class="container py-4">
+    <div class="page-header">
+        <div>
+            <h1>Chamados</h1>
+            <p class="subtitulo">Solicitações de suporte abertas pelos clientes</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/app/chamados/novo}">
+            <i class="bi bi-plus-lg me-1"></i>Novo chamado
+        </a>
+    </div>
+
+    <div class="card" id="conteudo-chamados">
+        <form class="card-header bg-body py-3" id="filtros-chamados">
+            <div class="row g-2 align-items-end">
+                <div class="col-6 col-md-3 col-xl-2">
+                    <label for="filtro-status" class="form-label small text-body-secondary mb-1">Status</label>
+                    <select id="filtro-status" name="status" class="form-select form-select-sm">
+                        <option value="">Todos</option>
+                        <option value="ABERTO">Aberto</option>
+                        <option value="EM_ATENDIMENTO">Em atendimento</option>
+                        <option value="AGUARDANDO_CLIENTE">Aguardando cliente</option>
+                        <option value="FECHADO">Fechado</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <label for="filtro-prioridade" class="form-label small text-body-secondary mb-1">Prioridade</label>
+                    <select id="filtro-prioridade" name="prioridade" class="form-select form-select-sm">
+                        <option value="">Todas</option>
+                        <option value="BAIXA">Baixa</option>
+                        <option value="MEDIA">Média</option>
+                        <option value="ALTA">Alta</option>
+                        <option value="CRITICA">Crítica</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-xl-3">
+                    <label for="filtro-cliente" class="form-label small text-body-secondary mb-1">Cliente</label>
+                    <select id="filtro-cliente" name="clienteId" class="form-select form-select-sm">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <label for="filtro-ordem" class="form-label small text-body-secondary mb-1">Ordenar por</label>
+                    <select id="filtro-ordem" name="sort" class="form-select form-select-sm">
+                        <option value="dataAbertura,desc">Mais recentes</option>
+                        <option value="dataAbertura,asc">Mais antigos</option>
+                        <option value="titulo,asc">Título (A–Z)</option>
+                        <option value="cliente.nome,asc">Cliente (A–Z)</option>
+                    </select>
+                </div>
+                <div class="col-12 col-xl-3 d-flex gap-2 justify-content-between justify-content-xl-end align-items-center">
+                    <span id="contador-chamados" class="text-body-secondary small"></span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary d-none" id="limpar-filtros">
+                        <i class="bi bi-x-lg me-1"></i>Limpar filtros
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div id="area-tabela-chamados" class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col" class="d-none d-md-table-cell">Cliente</th>
+                    <th scope="col" class="d-none d-xl-table-cell">Categoria</th>
+                    <th scope="col" class="d-none d-lg-table-cell">Técnico</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Prioridade</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="d-none d-lg-table-cell">Abertura</th>
+                </tr>
+                </thead>
+                <tbody id="tabela-chamados">
+                <tr>
+                    <td colspan="8" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="chamados-vazio" class="estado-vazio d-none">
+            <i class="bi bi-inbox"></i>
+            <p class="mb-3" id="chamados-vazio-mensagem"></p>
+            <a class="btn btn-primary" id="chamados-vazio-botao" th:href="@{/app/chamados/novo}">
+                <i class="bi bi-plus-lg me-1"></i>Abrir o primeiro chamado
+            </a>
+        </div>
+
+        <div class="card-footer bg-body d-flex justify-content-between align-items-center flex-wrap gap-2 d-none"
+             id="paginacao-chamados"></div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/chamados.js}"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Clientes')}"></head>
+<body data-pagina="clientes-lista">
+<nav th:replace="~{fragments/layout :: navbar('clientes')}"></nav>
+
+<main class="container py-4">
+    <div class="page-header">
+        <div>
+            <h1>Clientes</h1>
+            <p class="subtitulo">Quem abre os chamados no sistema</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/app/clientes/novo}">
+            <i class="bi bi-plus-lg me-1"></i>Novo cliente
+        </a>
+    </div>
+
+    <div class="card" id="conteudo-clientes">
+        <div class="card-header bg-body d-flex flex-wrap gap-2 justify-content-between align-items-center py-3">
+            <div class="input-group busca">
+                <span class="input-group-text bg-body"><i class="bi bi-search"></i></span>
+                <input type="search" id="busca-clientes" class="form-control"
+                       placeholder="Buscar por nome, e-mail ou telefone" aria-label="Buscar clientes">
+            </div>
+            <span id="contador-clientes" class="text-body-secondary small"></span>
+        </div>
+
+        <div id="area-tabela-clientes" class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="d-none d-sm-table-cell">E-mail</th>
+                    <th scope="col" class="d-none d-md-table-cell">Telefone</th>
+                    <th scope="col" class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody id="tabela-clientes">
+                <tr>
+                    <td colspan="4" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="clientes-vazio" class="estado-vazio d-none">
+            <i class="bi bi-people"></i>
+            <p class="mb-3" id="clientes-vazio-mensagem"></p>
+            <a class="btn btn-primary" id="clientes-vazio-botao" th:href="@{/app/clientes/novo}">
+                <i class="bi bi-plus-lg me-1"></i>Cadastrar o primeiro cliente
+            </a>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: rodape}"></th:block>
+<script th:src="@{/js/clientes.js}"></script>
+</body>
+</html>
